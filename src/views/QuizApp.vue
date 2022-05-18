@@ -1,21 +1,15 @@
 <template>
   <h1>Vue クイズ</h1>
   <div class="app">
-    <h2>Q. {{ "クイズタイトル" }}</h2>
+    <h2>Q. {{ question }}</h2>
     <img
       class="quiz-image"
-      src="https://via.placeholder.com/300x300"
+      src="https://zukan.pokemon.co.jp/zukan-api/up/images/index/30c6fa4c78bc3c2eb741e6a0282a086c.png"
       alt="クイズタイトル"
     />
     <div class="container">
-      <button>
-        {{ "選択肢1" }}
-      </button>
-      <button>
-        {{ "選択肢2" }}
-      </button>
-      <button>
-        {{ "選択肢3" }}
+      <button v-for="answer in answers" :key="answer">
+        {{ answer }}
       </button>
     </div>
     <div>{{ "答え" }}</div>
@@ -23,7 +17,19 @@
 </template>
 
 <script>
-export default {}
+export default {
+  data() {
+    return {
+      quiz: [
+        {
+          question: "このポケモンの名前はなんでしょう？",
+          answers: ["ジラーチ", "セレビィ", "シェイミ"],
+          answer: 1,
+        },
+      ],
+    }
+  },
+}
 </script>
 
 <style>
