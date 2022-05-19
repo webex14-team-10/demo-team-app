@@ -4,14 +4,8 @@
     <h2>Q. {{ quiz.title }}</h2>
     <img class="quiz-image" v-bind:src="quiz.image" v-bind:alt="quiz.title" />
     <div class="container">
-      <button>
-        {{ quiz.choices[0].text }}
-      </button>
-      <button>
-        {{ quiz.choices[1].text }}
-      </button>
-      <button>
-        {{ quiz.choices[2].text }}
+      <button v-for="column in quiz.choices" :key="column.text">
+        {{ column.text }}
       </button>
     </div>
     <div>{{ quiz.choices[0].feedback }}</div>
