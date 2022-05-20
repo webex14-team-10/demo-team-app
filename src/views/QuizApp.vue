@@ -20,26 +20,73 @@
 export default {
   data() {
     return {
-      quiz: {
-        title: "この星の名前は何でしょう？",
-        image: require("@/assets/Ganymede.jpg"),
-        choices: [
-          {
-            text: "ゴリアテ",
-            feedback:
-              "残念！ゴリアテは、旧約聖書に登場するダビデに石で殺される巨人だよ。",
-          },
-          {
-            text: "ゼニガメ",
-            feedback:
-              "残念！ゼニガメは、クサガメまたはニホンイシガメの幼体だよ。",
-          },
-          {
-            text: "ガニメデ",
-            feedback: "正解！ガニメデは、木星の第三惑星だよ！",
-          },
-        ],
-      },
+      quizes: [
+        {
+          title: "この星の名前は何でしょう？",
+          image: require("@/assets/Ganymede.jpg"),
+          choices: [
+            {
+              text: "ゴリアテ",
+              feedback:
+                "残念！ゴリアテは、旧約聖書に登場するダビデに石で殺される巨人だよ。",
+              authenticity: false,
+            },
+            {
+              text: "ゼニガメ",
+              feedback:
+                "残念！ゼニガメは、クサガメまたはニホンイシガメの幼体だよ。",
+              authenticity: false,
+            },
+            {
+              text: "ガニメデ",
+              feedback: "正解！ガニメデは、木星の第三惑星だよ！",
+              authenticity: true,
+            },
+          ],
+        },
+        {
+          text: "今何問目でしょう？",
+          image: "Two.jpeg",
+          choices: [
+            {
+              text: "に",
+              feedback: "正解！",
+              authenticity: true,
+            },
+            {
+              text: "1",
+              feedback: "残念！",
+              authenticity: false,
+            },
+            {
+              text: "4",
+              feedback: "残念",
+              authenticity: true,
+            },
+          ],
+        },
+        {
+          text: "城の名前は何でしょう？",
+          image: "maruoka.png",
+          choices: [
+            {
+              text: "丸岡城",
+              feedback: "正解！",
+              authenticity: true,
+            },
+            {
+              text: "丸亀城",
+              feedback: "残念！",
+              authenticity: false,
+            },
+            {
+              text: "ガニメデ",
+              feedback: "残念！ガニメデは、木星の第三惑星だよ！",
+              authenticity: false,
+            },
+          ],
+        },
+      ],
       quizFeedback: "",
     }
   },
