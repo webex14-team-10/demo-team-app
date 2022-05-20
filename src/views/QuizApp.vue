@@ -4,11 +4,15 @@
     <h2>Q. {{ quiz.title }}</h2>
     <img class="quiz-image" v-bind:src="quiz.image" v-bind:alt="quiz.title" />
     <div class="container">
-      <button v-for="column in quiz.choices" :key="column.text">
+      <button
+        v-for="column in quiz.choices"
+        :key="column.text"
+        @click="feedback(column.feedback)"
+      >
         {{ column.text }}
       </button>
     </div>
-    <div>{{ quiz.choices[0].feedback }}</div>
+    <div>{{ quizFeedback }}</div>
   </div>
 </template>
 
@@ -36,7 +40,13 @@ export default {
           },
         ],
       },
+      quizFeedback: "",
     }
+  },
+  methods: {
+    feedback: function (a) {
+      this.quizFeedback = a
+    },
   },
 }
 </script>
