@@ -24,18 +24,19 @@ export default {
   data() {
     return {
       memolist: [],
+      textInput: "",
     }
   },
   methods: {
     pushinput() {
-      if (this.textInput !== "") {
+      if (this.textInput === "") {
+        return
+      } else {
         this.memolist.push({
           memotext: this.textInput,
           //textInput.value = "",
         })
         this.textInput = ""
-      } else {
-        console.log("era")
       }
     },
     deleteinput(todo) {
