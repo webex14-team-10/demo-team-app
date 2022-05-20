@@ -28,13 +28,16 @@ export default {
   },
   methods: {
     pushinput() {
-      this.memolist.push({
-        memotext: this.textInput,
-        //textInput.value = "",
-      })
-      this.textInput = ""
+      if (this.textInput !== "") {
+        this.memolist.push({
+          memotext: this.textInput,
+          //textInput.value = "",
+        })
+        this.textInput = ""
+      } else {
+        console.log("era")
+      }
     },
-
     deleteinput(todo) {
       //ここでどれが選ばれたかを見る
       var index = this.memolist.indexOf(todo)
