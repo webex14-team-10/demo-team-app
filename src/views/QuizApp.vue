@@ -44,8 +44,8 @@ export default {
     }
   },
   methods: {
-    feedback: function (a) {
-      this.quizFeedback = a
+    feedback: function (choiceFeedback) {
+      this.quizFeedback = choiceFeedback
     },
   },
 }
