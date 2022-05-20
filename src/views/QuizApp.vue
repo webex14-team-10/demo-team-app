@@ -1,18 +1,23 @@
 <template>
   <h1>Vue クイズ</h1>
   <div class="app">
-    <h2>Q. {{ quiz.title }}</h2>
-    <img class="quiz-image" v-bind:src="quiz.image" v-bind:alt="quiz.title" />
+    <h2>Q. {{ quizes[quizNum].title }}</h2>
+    <img
+      class="quiz-image"
+      :src="quizes[quizNum].image"
+      :alt="quizes[quizNum].title"
+    />
     <div class="container">
       <button
-        v-for="column in quiz.choices"
+        v-for="column in quizes[quizNum].choices"
         :key="column.text"
-        @click="feedback(column.feedback)"
+        @click="feedback(column)"
       >
         {{ column.text }}
       </button>
     </div>
     <div>{{ quizFeedback }}</div>
+    <button :disabled="!isDisplay" @click="nextQuiz">次の問題へ</button>
   </div>
 </template>
 
@@ -45,8 +50,8 @@ export default {
           ],
         },
         {
-          text: "今何問目でしょう？",
-          image: "Two.jpeg",
+          title: "今何問目でしょう？",
+          image: require("@/assets/Two.jpeg"),
           choices: [
             {
               text: "に",
@@ -66,8 +71,8 @@ export default {
           ],
         },
         {
-          text: "城の名前は何でしょう？",
-          image: "maruoka.png",
+          title: "城の名前は何でしょう？",
+          image: require("@/assets/maruoka.png"),
           choices: [
             {
               text: "丸岡城",
@@ -88,11 +93,20 @@ export default {
         },
       ],
       quizFeedback: "",
+      quizNum: 0,
+      isDisplay: false,
     }
   },
   methods: {
-    feedback: function (choiceFeedback) {
-      this.quizFeedback = choiceFeedback
+    feedback: function (choice) {
+      this.quizFeedback = choice.feedback
+      this.isDisplay = choice.authenticity
+    },
+    nextQuiz: function () {
+      this.quizFeedback = ""
+      this.isDisplay = false
+      this.quizNum += 1
+      this.quizNum %= 3
     },
   },
 }
