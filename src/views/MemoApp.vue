@@ -2,37 +2,51 @@
   <h1>Vue メモ</h1>
   <div class="memo-list">
     <ul class="memo-list__container">
-      <li class="memo">
+      <li v-for="log in memolist" :key="log" class="memo">
         <div class="memo__checkbox">
           <input type="checkbox" />
         </div>
-        <div class="memo__text">ひき肉を300g買う</div>
-        <button class="memo__delete">削除</button>
-      </li>
-      <li class="memo">
-        <div class="memo__checkbox">
-          <input type="checkbox" />
-        </div>
-        <div class="memo__text">ホウレンソウを1束買う</div>
-        <button class="memo__delete">削除</button>
-      </li>
-      <li class="memo">
-        <div class="memo__checkbox">
-          <input type="checkbox" />
-        </div>
-        <div class="memo__text">ピーマンを2個買う</div>
-        <button class="memo__delete">削除</button>
+        <div class="memo__text">{{ log.memotext }}</div>
+        <button class="memo__delete" v-on:click="deleteinput">削除</button>
       </li>
     </ul>
     <div class="add-memo-field">
-      <input class="add-memo-field__input" type="text" />
-      <button class="add-memo-field__button">追加</button>
+      <input class="add-memo-field__input" type="text" v-model="textInput" />
+      <button class="add-memo-field__button" v-on:click="pushinput">
+        追加
+      </button>
     </div>
   </div>
 </template>
 
 <script>
-export default {}
+export default {
+  data() {
+    return {
+      memolist: [],
+    }
+  },
+  methods: {
+    pushinput() {
+      if (this.textInput !== "") {
+        this.memolist.push({
+          memotext: this.textInput,
+          //textInput.value = "",
+        })
+        this.textInput = ""
+      } else {
+        console.log("era")
+      }
+    },
+    deleteinput(todo) {
+      //ここでどれが選ばれたかを見る
+      var index = this.memolist.indexOf(todo)
+      //indexで選ばれたものを1つ消す
+      this.memolist.splice(index, 1)
+      //this.memolist.remove
+    },
+  },
+}
 </script>
 
 <style scoped>
