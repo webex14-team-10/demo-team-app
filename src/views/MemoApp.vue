@@ -7,7 +7,7 @@
           <input type="checkbox" />
         </div>
         <div class="memo__text">{{ log.memotext }}</div>
-        <button class="memo__delete" v-on:click="deleteinput">削除</button>
+        <button class="memo__delete" v-on:click="deleteinput(log)">削除</button>
       </li>
     </ul>
     <div class="add-memo-field">
@@ -24,23 +24,25 @@ export default {
   data() {
     return {
       memolist: [],
+      textInput: "",
     }
   },
   methods: {
     pushinput() {
-      if (this.textInput !== "") {
+      if (this.textInput === "") {
+        return
+      } else {
         this.memolist.push({
           memotext: this.textInput,
           //textInput.value = "",
         })
         this.textInput = ""
-      } else {
-        console.log("era")
       }
     },
-    deleteinput(todo) {
+    deleteinput(log) {
+      console.log(log)
       //ここでどれが選ばれたかを見る
-      var index = this.memolist.indexOf(todo)
+      var index = this.memolist.indexOf(log)
       //indexで選ばれたものを1つ消す
       this.memolist.splice(index, 1)
       //this.memolist.remove
