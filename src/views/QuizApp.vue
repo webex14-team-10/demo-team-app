@@ -12,12 +12,13 @@
         v-for="column in quizes[quizNum].choices"
         :key="column.text"
         @click="feedback(column)"
+        :disabled="!choiceBtnDisplay"
       >
         {{ column.text }}
       </button>
     </div>
     <div>{{ quizFeedback }}</div>
-    <button :disabled="!isDisplay" @click="nextQuiz">次の問題へ</button>
+    <button :disabled="!nextBtnDisplay" @click="nextQuiz">次の問題へ</button>
   </div>
 </template>
 
@@ -94,19 +95,22 @@ export default {
       ],
       quizFeedback: "",
       quizNum: 0,
-      isDisplay: false,
+      nextBtnDisplay: false,
+      choiceBtnDisplay: true,
     }
   },
   methods: {
     feedback: function (choice) {
       this.quizFeedback = choice.feedback
-      this.isDisplay = choice.authenticity
+      this.nextBtnDisplay = true
+      this.choiceBtnDisplay = false
     },
     nextQuiz: function () {
       this.quizFeedback = ""
-      this.isDisplay = false
+      this.nextBtnDisplay = false
       this.quizNum += 1
       this.quizNum %= 3
+      this.choiceBtnDisplay = true
     },
   },
 }
