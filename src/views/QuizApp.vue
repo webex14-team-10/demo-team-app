@@ -20,6 +20,7 @@
     <div>{{ quizFeedback }}</div>
     <button :disabled="!nextBtnDisplay" @click="nextQuiz">次の問題へ</button>
   </div>
+  <div>正答数：{{ seitousu }}/{{ quizNum + 1 }}</div>
 </template>
 
 <script>
@@ -97,6 +98,7 @@ export default {
       quizNum: 0,
       nextBtnDisplay: false,
       choiceBtnDisplay: true,
+      seitousu: 0,
     }
   },
   methods: {
@@ -104,12 +106,18 @@ export default {
       this.quizFeedback = choice.feedback
       this.nextBtnDisplay = true
       this.choiceBtnDisplay = false
+      if (choice.authenticity) {
+        this.seitousu += 1
+      }
     },
     nextQuiz: function () {
       this.quizFeedback = ""
       this.nextBtnDisplay = false
       this.quizNum += 1
       this.quizNum %= 3
+      if (this.quizNum === 0) {
+        this.seitousu = 0
+      }
       this.choiceBtnDisplay = true
     },
   },
