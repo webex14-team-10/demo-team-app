@@ -9,11 +9,14 @@
 <script>
 import Header from "@/components/Header"
 import Footer from "@/components/Footer"
-
+import PaletteApp from "@/views/PaletteApp.vue"
 export default {
   components: {
     Header,
     Footer,
+  },
+  views: {
+    PaletteApp,
   },
 }
 </script>
