@@ -7,7 +7,7 @@
       v-on:click="pickColor"
       v-bind:style="paletteStyle"
     ></div>
-    <p>rgba( {{ red }}, {{ green }}, 200, 0.5 )</p>
+    <p>rgba( {{ red }}, {{ green }}, 200 )</p>
     <div class="colors-container">
       <div
         class="mini-palette"
