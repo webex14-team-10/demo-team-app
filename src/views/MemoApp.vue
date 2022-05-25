@@ -4,9 +4,11 @@
     <ul class="memo-list__container">
       <li v-for="log in memolist" :key="log" class="memo">
         <div class="memo__checkbox">
-          <input type="checkbox" />
+          <input type="checkbox" v-model="done" />
         </div>
-        <div class="memo__text">{{ log.memotext }}</div>
+        <div class="memo__text" v-bind:class="{ done: done }">
+          {{ log.memotext }}
+        </div>
         <button class="memo__delete" v-on:click="deleteinput(log)">削除</button>
       </li>
     </ul>
@@ -20,11 +22,15 @@
 </template>
 
 <script>
+import { collection, addDoc } from "firebase/firestore"
+import { db } from "/Users/ichidakeiji/webex/demo-team-app/src/firebase.js"
+
 export default {
   data() {
     return {
       memolist: [],
       textInput: "",
+      done: false,
     }
   },
   methods: {
@@ -35,6 +41,9 @@ export default {
         this.memolist.push({
           memotext: this.textInput,
           //textInput.value = "",
+        })
+        addDoc(collection(db, "memolist"), {
+          text: this.textInput,
         })
         this.textInput = ""
       }
@@ -121,5 +130,11 @@ export default {
 .add-memo-field__button:hover {
   background-color: #b2ae3b;
   border-radius: 5px;
+}
+.text-decoration-line-through {
+  margin: 1px;
+}
+.done {
+  text-decoration: line-through;
 }
 </style>
