@@ -2,27 +2,26 @@
   <h1>Vue パレット</h1>
   <div class="app">
     <div class="palette" style="background-color: rgba(0, 0, 200, 0.5)"></div>
-    <div id="app" class="app">
+    <p>rgba( {{ 0 }}, {{ 0 }}, 200, 0.5 )</p>
+    <div
+      class="palette"
+      style="background-color: rgba(0, 0, 200, 0.5)"
+      v-on:mousemove="changeColor"
+      v-on:click="pickColor"
+      v-bind:style="paletteStyle"
+    ></div>
+    <p>rgba( {{ this.red }}, {{ this.green }}, 200, 0.5 )</p>
+    <div class="colors-container">
+      <div class="mini-palette"></div>
       <div
-        class="palette"
-        v-on:mousemove="changeColor"
-        v-on:click="pickColor"
-        v-bind:style="paletteStyle"
+        v-for="(color, index) in colors"
+        v-bind:key="index"
+        class="mini-palette"
+        v-bind:style="{
+          backgroundColor: `rgba(${color.red}, ${color.green}, 200, 0.5)`,
+        }"
+        v-on:click="showColor(color)"
       ></div>
-      >>>>>>> origin/master
-      <p>rgba( {{ red }}, {{ green }}, 200, 0.5 )</p>
-      <div class="colors-container">
-        <div
-          class="mini-palette"
-          v-for="(color, index) in colors"
-          v-bind:style="{
-            backgroundColor: `rgba(${color.red}, ${color.green}, 200, 0.5)`,
-          }"
-          v-on:click="showColor(color)"
-          v-bind:key="index"
-          v-bind:color="color"
-        ></div>
-      </div>
     </div>
   </div>
 </template>
@@ -90,44 +89,3 @@ export default {
   padding-top: 8px;
 }
 </style>
-
-<script>
-export default {
-  data() {
-    return {
-      red: 0,
-      green: 0,
-      colors: [
-        // { red: 0, green: 0 }
-      ],
-    }
-  },
-  methods: {
-    // マウスの位置に応じて色を変える
-    changeColor(e) {
-      this.red = e.offsetX
-      this.green = e.offsetY
-    },
-    // 色を選んでミニパレットに追加する
-    pickColor() {
-      const newColor = {
-        red: this.red,
-        green: this.green,
-      }
-      this.colors.push(newColor)
-    },
-    // パレットに指定した色を表示する
-    showColor(color) {
-      this.red = color.red
-      this.green = color.green
-    },
-  },
-  computed: {
-    paletteStyle() {
-      return {
-        backgroundColor: `rgba(${this.red}, ${this.green}, 200, 0.5)`,
-      }
-    },
-  },
-}
-</script>
