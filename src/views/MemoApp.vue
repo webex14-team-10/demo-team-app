@@ -2,12 +2,12 @@
   <h1>Vue メモ</h1>
   <div class="memo-list">
     <ul class="memo-list__container">
-      <li v-for="log in memolist" :key="log" class="memo">
+      <li v-for="(todo, log) in memolist" :key="todo" class="memo">
         <div class="memo__checkbox">
-          <input type="checkbox" v-model="done" />
+          <input type="checkbox" v-model="todo.isDone" />
         </div>
-        <div class="memo__text" v-bind:class="{ done: done }">
-          {{ log.memotext }}
+        <div class="memo__text" v-bind:class="{ done: todo.isDone }">
+          {{ todo.memotext }}
         </div>
         <button class="memo__delete" v-on:click="deleteinput(log)">削除</button>
       </li>
@@ -23,14 +23,13 @@
 
 <script>
 import { collection, addDoc } from "firebase/firestore"
-import { db } from "/Users/ichidakeiji/webex/demo-team-app/src/firebase.js"
+import { db } from "@/firebase.js"
 
 export default {
   data() {
     return {
       memolist: [],
       textInput: "",
-      done: false,
     }
   },
   methods: {
@@ -38,10 +37,17 @@ export default {
       if (this.textInput === "") {
         return
       } else {
-        this.memolist.push({
+        var todo = {
           memotext: this.textInput,
-          //textInput.value = "",
-        })
+          isDone: false,
+        }
+
+        this.memolist.push(todo)
+        // this.memolist.push({
+        //   memotext: this.textInput,
+        //   //textInput.value = "",
+        // })
+        
         addDoc(collection(db, "memolist"), {
           text: this.textInput,
         })
@@ -71,11 +77,9 @@ export default {
   margin-left: auto;
   margin-right: auto;
 }
-
 .memo-list__container {
   padding: 0;
 }
-
 .memo {
   display: flex;
   justify-content: space-between;
@@ -83,21 +87,17 @@ export default {
   padding: 0.5rem;
   border-radius: 5px;
 }
-
 .memo:hover {
   color: white;
   background-color: #b23b61;
 }
-
 .memo__text {
   margin-left: 2rem;
   text-align: left;
 }
-
 .memo__text--done {
   text-decoration-line: line-through;
 }
-
 .memo__delete {
   margin-left: 1rem;
   padding: 0.5rem 0.5rem;
@@ -105,18 +105,15 @@ export default {
   border-radius: 5px;
   background-color: white;
 }
-
 .memo__delete:hover {
   background-color: #b2ae3b;
   border-radius: 5px;
 }
-
 .add-memo-field {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
 }
-
 .add-memo-field__input {
   padding: 10px;
 }
@@ -126,7 +123,6 @@ export default {
   border-radius: 5px;
   background-color: white;
 }
-
 .add-memo-field__button:hover {
   background-color: #b2ae3b;
   border-radius: 5px;
