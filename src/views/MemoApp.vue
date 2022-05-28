@@ -23,7 +23,8 @@
 
 <script>
 import { collection, addDoc } from "firebase/firestore"
-import { db } from "/Users/ichidakeiji/webex/demo-team-app/src/firebase.js"
+import { db } from "@/firebase.js"
+
 export default {
   data() {
     return {
@@ -46,6 +47,7 @@ export default {
         //   memotext: this.textInput,
         //   //textInput.value = "",
         // })
+        
         addDoc(collection(db, "memolist"), {
           text: this.textInput,
         })

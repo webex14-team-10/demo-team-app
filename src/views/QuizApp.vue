@@ -20,6 +20,7 @@
     <div>{{ quizFeedback }}</div>
     <button :disabled="!nextBtnDisplay" @click="nextQuiz">次の問題へ</button>
   </div>
+  <div>正答数：{{ seitousu }}/{{ quizNum + 1 }}</div>
 </template>
 
 <script>
@@ -28,66 +29,66 @@ export default {
     return {
       quizes: [
         {
-          title: "この星の名前は何でしょう？",
+          title: "太陽の表面温度は何度？",
           image: require("@/assets/Ganymede.jpg"),
           choices: [
             {
-              text: "ゴリアテ",
+              text: "57000℃",
               feedback:
                 "残念！ゴリアテは、旧約聖書に登場するダビデに石で殺される巨人だよ。",
               authenticity: false,
             },
             {
-              text: "ゼニガメ",
+              text: "57万℃",
               feedback:
                 "残念！ゼニガメは、クサガメまたはニホンイシガメの幼体だよ。",
               authenticity: false,
             },
             {
-              text: "ガニメデ",
+              text: "5700℃",
               feedback: "正解！ガニメデは、木星の第三惑星だよ！",
               authenticity: true,
             },
           ],
         },
         {
-          title: "今何問目でしょう？",
+          title: "ゴリラの血液型は何型？",
           image: require("@/assets/Two.jpeg"),
           choices: [
             {
-              text: "に",
+              text: "B型",
               feedback: "正解！",
               authenticity: true,
             },
             {
-              text: "1",
+              text: "A型",
               feedback: "残念！",
               authenticity: false,
             },
             {
-              text: "4",
+              text: "O型",
               feedback: "残念",
               authenticity: true,
             },
           ],
         },
         {
-          title: "城の名前は何でしょう？",
+          title: "2進数で1011011は10進数に直すと？",
           image: require("@/assets/maruoka.png"),
           choices: [
             {
-              text: "丸岡城",
+              text: "91",
               feedback: "正解！",
               authenticity: true,
             },
             {
-              text: "丸亀城",
+              text: "121",
               feedback: "残念！",
               authenticity: false,
             },
             {
-              text: "ガニメデ",
-              feedback: "残念！ガニメデは、木星の第三惑星だよ！",
+              text: "153",
+              feedback: "残念！",
               authenticity: false,
             },
           ],
@@ -97,6 +98,7 @@ export default {
       quizNum: 0,
       nextBtnDisplay: false,
       choiceBtnDisplay: true,
+      seitousu: 0,
     }
   },
   methods: {
@@ -104,12 +106,18 @@ export default {
       this.quizFeedback = choice.feedback
       this.nextBtnDisplay = true
       this.choiceBtnDisplay = false
+      if (choice.authenticity) {
+        this.seitousu += 1
+      }
     },
     nextQuiz: function () {
       this.quizFeedback = ""
       this.nextBtnDisplay = false
       this.quizNum += 1
       this.quizNum %= 3
+      if (this.quizNum === 0) {
+        this.seitousu = 0
+      }
       this.choiceBtnDisplay = true
     },
   },
